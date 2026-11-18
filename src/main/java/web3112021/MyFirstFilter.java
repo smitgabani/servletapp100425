@@ -1,0 +1,34 @@
+package web3112021;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
+
+@WebFilter("/*")
+public class MyFirstFilter implements Filter {
+
+	public void init(FilterConfig arg0) throws ServletException {
+	}
+
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+			throws IOException, ServletException {
+		System.out.println("Inside doFilter:: MyFirstFilter");
+		PrintWriter out = resp.getWriter();
+		out.print("filter is invoked before");
+
+		chain.doFilter(req, resp);// sends request to next filter or servlet
+
+		out.print("filter is invoked after");
+	}
+
+	public void destroy() {
+	}
+
+}
